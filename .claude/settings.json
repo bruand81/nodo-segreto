@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(osascript -e 'tell application \"System Events\" to \\(exists process \"scout_code\"\\)')",
+      "Bash(pkill -f \"scout_code.app\")",
+      "Bash(echo \"pkill exit:$?\")",
+      "Bash(osascript -e ' *)",
+      "Bash(screencapture -D2 -x /private/tmp/claude-501/-Users-bruand-Developer-Scout-Avellino-1-scout-code/ce38cd48-841e-449c-ac68-a7717aa4f03f/scratchpad/scoutcode_v1.png)",
+      "Bash(cliclick -V)",
+      "Bash(python3 -c \"import Quartz; print\\('ok'\\)\")",
+      "Bash(osascript -e 'tell application \"System Events\" to click at {1706, 838}')",
+      "Bash(screencapture -D2 -x /private/tmp/claude-501/-Users-bruand-Developer-Scout-Avellino-1-scout-code/ce38cd48-841e-449c-ac68-a7717aa4f03f/scratchpad/scoutcode_v2_default.png)",
+      "Bash(screencapture -D2 -x /private/tmp/claude-501/-Users-bruand-Developer-Scout-Avellino-1-scout-code/ce38cd48-841e-449c-ac68-a7717aa4f03f/scratchpad/scoutcode_tab1.png)",
+      "Bash(screencapture -D2 -x /private/tmp/claude-501/-Users-bruand-Developer-Scout-Avellino-1-scout-code/ce38cd48-841e-449c-ac68-a7717aa4f03f/scratchpad/scoutcode_open.png)",
+      "Bash(screencapture -D2 -x /private/tmp/claude-501/-Users-bruand-Developer-Scout-Avellino-1-scout-code/ce38cd48-841e-449c-ac68-a7717aa4f03f/scratchpad/scoutcode_caesar.png)",
+      "Bash(osascript -e 'tell application \"System Events\" to click at {1905, 2034}')",
+      "Bash(screencapture -D2 -x /private/tmp/claude-501/-Users-bruand-Developer-Scout-Avellino-1-scout-code/ce38cd48-841e-449c-ac68-a7717aa4f03f/scratchpad/scoutcode_typed.png)",
+      "Bash(screencapture -D2 -x /private/tmp/claude-501/-Users-bruand-Developer-Scout-Avellino-1-scout-code/ce38cd48-841e-449c-ac68-a7717aa4f03f/scratchpad/scoutcode_numeric.png)",
+      "Bash(screencapture -D2 -x /private/tmp/claude-501/-Users-bruand-Developer-Scout-Avellino-1-scout-code/ce38cd48-841e-449c-ac68-a7717aa4f03f/scratchpad/step1_open.png)"
+    ]
+  }
+}

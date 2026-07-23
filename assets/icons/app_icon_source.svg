@@ -1,0 +1,31 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sfondo pieno, senza trasparenza (richiesto per icona iOS) -->
+  <rect x="0" y="0" width="1024" height="1024" fill="#1B4332"/>
+
+  <!-- Badge circolare interno -->
+  <circle cx="512" cy="480" r="440" fill="#2D6A4F"/>
+  <circle cx="512" cy="480" r="440" fill="none" stroke="#153826" stroke-width="10"/>
+
+  <!-- Corda: due capi che si incrociano una volta sotto l'asola (nodo semplice) -->
+  <path d="M 420 500 C 460 560, 460 560, 560 622 C 610 654, 606 726, 600 806" fill="none" stroke="#8A5A2B" stroke-width="80" stroke-linecap="round"/>
+  <path d="M 604 500 C 564 560, 564 560, 464 622 C 414 654, 418 726, 424 806" fill="none" stroke="#8A5A2B" stroke-width="80" stroke-linecap="round"/>
+
+  <path d="M 420 500 C 460 560, 460 560, 560 622 C 610 654, 606 726, 600 806" fill="none" stroke="#E0B378" stroke-width="62" stroke-linecap="round"/>
+  <path d="M 604 500 C 564 560, 564 560, 464 622 C 414 654, 418 726, 424 806" fill="none" stroke="#E0B378" stroke-width="62" stroke-linecap="round"/>
+
+  <!-- Asola del nodo (l'anello superiore della corda) -->
+  <circle cx="512" cy="410" r="148" fill="none" stroke="#8A5A2B" stroke-width="82"/>
+  <circle cx="512" cy="410" r="148" fill="none" stroke="#E0B378" stroke-width="64"/>
+  <!-- richiude il badge sopra la parte alta dell'asola per un bordo netto -->
+  <path d="M 340 410 A 172 172 0 0 1 684 410" fill="none" stroke="#2D6A4F" stroke-width="4" opacity="0"/>
+
+  <!-- Intreccio: finestra nel colore di sfondo dove un capo passa sotto l'altro -->
+  <g transform="rotate(-40 512 618)">
+    <rect x="480" y="598" width="64" height="40" rx="18" fill="#2D6A4F"/>
+  </g>
+
+  <!-- Motivo Morse lungo il capo destro: due punti e una linea -->
+  <circle cx="608" cy="700" r="19" fill="#1B4332"/>
+  <circle cx="602" cy="748" r="19" fill="#1B4332"/>
+  <rect x="578" y="782" width="54" height="25" rx="12" fill="#1B4332"/>
+</svg>
