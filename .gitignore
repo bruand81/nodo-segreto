@@ -33,6 +33,7 @@ migrate_working_dir/
 
 # Specifica dei requisiti (fonte di verità locale, non da pubblicare nel repo)
 istruzioni.md
+istruzioni_store.md
 
 # Flutter/Dart/Pub related
 **/doc/api/
@@ -54,3 +55,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+ignored.txt

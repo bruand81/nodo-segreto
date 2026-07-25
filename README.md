@@ -72,3 +72,7 @@ Sviluppato da **Andrea Bruno** ([bruand81.it](https://www.bruand81.it)) del **Gr
 ## Licenza
 
 Distribuito con licenza [MIT](LICENSE).
+
+## Privacy Policy
+
+[Privacy Policy](https://bruand81.github.io/nodo-segreto/privacy-policy.html) (da linkare in App Store Connect / Google Play Console — richiede GitHub Pages abilitato su questo repo, cartella `/docs`).
