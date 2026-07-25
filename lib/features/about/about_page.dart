@@ -93,7 +93,7 @@ class _VersionLabel extends StatelessWidget {
             text,
             style: Theme.of(
               context,
-            ).textTheme.bodySmall?.copyWith(color: ScoutColors.ropeBrown),
+            ).textTheme.bodySmall?.copyWith(color: ScoutColors.violaScuro),
           ),
         );
       },

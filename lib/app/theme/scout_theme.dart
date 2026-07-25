@@ -7,11 +7,12 @@ class ScoutTheme {
 
   static ThemeData light() {
     final colorScheme = ColorScheme.fromSeed(
-      seedColor: ScoutColors.scoutGreen,
+      seedColor: ScoutColors.verdeEG,
       brightness: Brightness.light,
-      primary: ScoutColors.scoutGreen,
-      secondary: ScoutColors.ropeBrown,
-      tertiary: ScoutColors.ropeTan,
+      primary: ScoutColors.verdeEG,
+      secondary: ScoutColors.violaScuro,
+      tertiary: ScoutColors.azzurro,
+      error: ScoutColors.rossoRS,
       surface: ScoutColors.parchment,
     );
 
@@ -20,18 +21,18 @@ class ScoutTheme {
       colorScheme: colorScheme,
       scaffoldBackgroundColor: ScoutColors.parchment,
       appBarTheme: AppBarTheme(
-        backgroundColor: ScoutColors.forestGreen,
+        backgroundColor: ScoutColors.verdeEG,
         foregroundColor: Colors.white,
         centerTitle: true,
         elevation: 0,
       ),
       navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: ScoutColors.forestGreen,
-        indicatorColor: ScoutColors.ropeTan,
+        backgroundColor: ScoutColors.verdeEG,
+        indicatorColor: ScoutColors.gialloOro,
         iconTheme: WidgetStateProperty.resolveWith((states) {
           final selected = states.contains(WidgetState.selected);
           return IconThemeData(
-            color: selected ? ScoutColors.forestGreen : Colors.white70,
+            color: selected ? ScoutColors.verdeEG : Colors.white70,
           );
         }),
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
@@ -43,12 +44,12 @@ class ScoutTheme {
         }),
       ),
       filledButtonTheme: FilledButtonThemeData(
-        style: FilledButton.styleFrom(backgroundColor: ScoutColors.scoutGreen),
+        style: FilledButton.styleFrom(backgroundColor: ScoutColors.verdeEG),
       ),
       segmentedButtonTheme: SegmentedButtonThemeData(
         style: SegmentedButton.styleFrom(
-          selectedBackgroundColor: ScoutColors.ropeTan,
-          selectedForegroundColor: ScoutColors.forestGreen,
+          selectedBackgroundColor: ScoutColors.gialloOro,
+          selectedForegroundColor: ScoutColors.verdeEG,
         ),
       ),
       inputDecorationTheme: const InputDecorationTheme(
