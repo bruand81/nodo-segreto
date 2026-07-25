@@ -14,6 +14,7 @@ An offline-first, cross-platform (mobile + desktop) app for encoding/decoding me
 
 - **Modular architecture**: each cipher is a self-contained plugin; the core (input, UI shell, storage, sharing) has no knowledge of which ciphers are registered.
 - **Fully offline**: no network dependency. Encoded/decoded messages are saved locally on-device (SQLite via Drift).
+- **App icon & splash screen**: `assets/icons/app_icon_source.png` (+ `.svg`) is a full-bleed square (green `#438226` background, yellow lock/knot/Morse glyph, no pre-baked corner rounding — platforms apply their own mask). Splash screens (`assets/splash/`) are generated only for Android and iOS via `flutter_native_splash` (config in `pubspec.yaml`), since those are the only platforms with a native splash-screen concept and the only ones the package supports; macOS/Windows/Linux just open the Flutter window directly and only get the app icon.
 - **Sharing**: messages can be shared via file export, native share sheet, or QR code (generate + import from image).
 - **Input methods**: manual text entry, import from a text file, or import from a QR code image.
 - **UI**: Scout-themed (forest green / rope tan palette), cipher selection via dropdown, dedicated output area.
@@ -32,6 +33,7 @@ An offline-first, cross-platform (mobile + desktop) app for encoding/decoding me
 - Build: `flutter build macos` / `flutter build ios --no-codesign` / `flutter build apk`
 - Dopo aver modificato lo schema Drift (`lib/core/storage/drift/app_database.dart`): `dart run build_runner build --delete-conflicting-outputs`
 - Dopo aver cambiato `assets/icons/app_icon_source.png`: `dart run flutter_launcher_icons` (config in `pubspec.yaml`, chiave `flutter_launcher_icons`)
+- Dopo aver cambiato `assets/splash/splash_logo*.png`: `dart run flutter_native_splash:create` (config in `pubspec.yaml`, chiave `flutter_native_splash`; solo Android/iOS)
 
 ## Architettura
 
