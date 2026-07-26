@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-**Implemented.** Flutter/Dart app, scaffolded for Android, iOS, macOS, Windows and Linux. All three required ciphers (Morse, Cesare, sostituzione numerica) plus the optional Pigpen cipher are implemented and tested. Storage, sharing/QR, Scout theme, branding and the About page are done too. Windows/Linux builds have not been exercised (developed on macOS); everything else has been built and run successfully on macOS, and built (not run) for iOS and Android.
+**Implemented.** Flutter/Dart app, scaffolded for Android, iOS, macOS, Windows and Linux. All three required ciphers (Morse, Cesare, sostituzione numerica) plus the optional Pigpen cipher are implemented and tested. Storage, sharing/QR, Scout theme, branding and the About page are done too. Windows/Linux builds have not been exercised (developed on macOS); macOS, iOS (simulator) and Android (emulator) have all been built and run successfully — verified end-to-end on 2026-07-26 while producing App Store/Play Store screenshots (workflow and gotchas logged in the local, untracked `istruzioni_store.md`). Real iOS/Android hardware has not been exercised in this environment.
 
 `istruzioni.md` is the source of truth for requirements (in Italian); the summary below is for orientation. The "Encoding specs" section documents exact rules including some formatting details not explicit in `istruzioni.md` that were resolved with the app owner (see inline notes) — treat those as settled, not open questions.
 
@@ -34,6 +34,8 @@ An offline-first, cross-platform (mobile + desktop) app for encoding/decoding me
 - Dopo aver modificato lo schema Drift (`lib/core/storage/drift/app_database.dart`): `dart run build_runner build --delete-conflicting-outputs`
 - Dopo aver cambiato `assets/icons/app_icon_source.png`: `dart run flutter_launcher_icons` (config in `pubspec.yaml`, chiave `flutter_launcher_icons`)
 - Dopo aver cambiato `assets/splash/splash_logo*.png`: `dart run flutter_native_splash:create` (config in `pubspec.yaml`, chiave `flutter_native_splash`; solo Android/iOS)
+- Se la build iOS/macOS fallisce con `Target Integrity: ... deployment target versions is 15.0 to ...` (iOS) o `12.0 to ...` (macOS): sono i minimi richiesti dall'Xcode installato su questa macchina, già impostati in `ios/Podfile`+`Runner.xcodeproj` (15.0) e `macos/Podfile`+`Runner.xcodeproj` (12.0). Il `post_install` in entrambi i Podfile riapplica il target a tutti i Pod, quindi cancellare `Pods/` e rilanciare `pod install` è sicuro.
+- I simulatori iOS 27.0 non compilano con l'Xcode 26.6 installato su questa macchina (SDK troppo recente per il toolchain); usare simulatori iOS ≤26.5 finché Xcode non viene aggiornato.
 
 ## Architettura
 

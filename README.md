@@ -40,7 +40,7 @@ Supporta tre cifrari richiesti più uno opzionale:
 
 ## Piattaforme
 
-Sviluppato e testato su **macOS**; build effettuate (non eseguite) per **iOS** e **Android**. Gli scaffold per **Windows** e **Linux** sono presenti ma non ancora verificati su hardware dedicato.
+Sviluppato e testato su **macOS**; eseguita con successo anche su **simulatore iOS** ed **emulatore Android**. Non ancora testata su dispositivi fisici iOS/Android reali. Gli scaffold per **Windows** e **Linux** sono presenti ma non ancora verificati su hardware dedicato.
 
 ## Per iniziare
 
