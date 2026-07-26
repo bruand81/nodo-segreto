@@ -10,6 +10,7 @@ class ScoutCodeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Nodo Segreto',
+      debugShowCheckedModeBanner: false,
       theme: ScoutTheme.light(),
       home: const MainShell(),
     );
