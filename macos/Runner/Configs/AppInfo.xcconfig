@@ -8,7 +8,7 @@
 PRODUCT_NAME = Nodo Segreto
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = it.avellino1.scoutCode
+PRODUCT_BUNDLE_IDENTIFIER = org.antaresnet.nodoSegreto
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2026 it.avellino1. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2026 Andrea Bruno (bruand81.it). All rights reserved.
