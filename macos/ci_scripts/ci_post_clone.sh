@@ -31,3 +31,10 @@ retry flutter pub get
 
 cd macos
 retry pod install
+
+# pub get alone doesn't populate macos/Flutter/ephemeral/*.xcfilelist —
+# those are only written by "flutter assemble", which the Xcode archive
+# step's "Flutter Assemble" run-script phase needs to already exist before
+# it runs. --config-only generates them without doing a redundant full build.
+cd "$CI_PRIMARY_REPOSITORY_PATH"
+retry flutter build macos --release --config-only
