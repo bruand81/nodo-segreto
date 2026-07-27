@@ -3,10 +3,13 @@
 # macos/Flutter/ephemeral/ (gitignored) is never generated. Without it,
 # macos/Podfile can't run (it reads FLUTTER_ROOT from Flutter-Generated.xcconfig)
 # and the xcconfig include in Flutter-Release.xcconfig fails.
-set -e
+set -ex
 
 git clone https://github.com/flutter/flutter.git -b 3.41.7 --depth 1 "$HOME/flutter"
 export PATH="$PATH:$HOME/flutter/bin"
+
+flutter --version
+flutter precache --macos
 
 cd "$CI_PRIMARY_REPOSITORY_PATH"
 flutter pub get
