@@ -5,14 +5,29 @@
 # and the xcconfig include in Flutter-Release.xcconfig fails.
 set -ex
 
-git clone https://github.com/flutter/flutter.git -b 3.41.7 --depth 1 "$HOME/flutter"
+# CI networking to storage.googleapis.com/CocoaPods CDN occasionally resets
+# mid-download; retry the network-heavy steps instead of failing on one blip.
+retry() {
+  n=1
+  until "$@"; do
+    n=$((n + 1))
+    if [ "$n" -gt 3 ]; then
+      return 1
+    fi
+    echo "Retrying ($n/3): $*"
+    sleep 5
+  done
+}
+
+rm -rf "$HOME/flutter"
+retry git clone https://github.com/flutter/flutter.git -b 3.41.7 --depth 1 "$HOME/flutter"
 export PATH="$PATH:$HOME/flutter/bin"
 
 flutter --version
-flutter precache --macos
+retry flutter precache --macos
 
 cd "$CI_PRIMARY_REPOSITORY_PATH"
-flutter pub get
+retry flutter pub get
 
 cd macos
-pod install
+retry pod install
