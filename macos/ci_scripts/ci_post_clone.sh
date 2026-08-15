@@ -22,7 +22,12 @@ rm -rf "$HOME/flutter"
 retry git clone https://github.com/flutter/flutter.git -b 3.44.8 --depth 1 "$HOME/flutter"
 export PATH="$PATH:$HOME/flutter/bin"
 
-flutter --version
+# flutter --version triggers the first download of the Darwin Dart SDK
+# artifact from Google's storage; wrap it too (not just precache/pub get/
+# build below), otherwise a single network blip here fails the whole
+# script with no retry (seen as "curl: (35) Recv failure: Connection
+# reset by peer" on 2026-08-15).
+retry flutter --version
 retry flutter precache --macos
 
 cd "$CI_PRIMARY_REPOSITORY_PATH"
