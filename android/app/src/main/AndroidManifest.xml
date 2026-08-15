@@ -1,4 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Richiesto per la scansione QR dal vivo (mobile_scanner). Il plugin
+         dichiara già questo permesso nel proprio manifest (unito
+         automaticamente dal manifest merger); lo rendiamo esplicito qui per
+         documentazione. -->
+    <uses-permission android:name="android.permission.CAMERA" />
     <application
         android:label="Nodo Segreto"
         android:name="${applicationName}"

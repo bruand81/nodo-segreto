@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io' show Platform;
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:file_selector/file_selector.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,6 +18,13 @@ import 'widgets/cipher_selector.dart';
 import 'widgets/input_area.dart';
 import 'widgets/output_area.dart';
 import 'widgets/qr_display_dialog.dart';
+import 'widgets/qr_scan_screen.dart';
+
+/// La scansione QR dal vivo ha senso solo dove esiste una fotocamera
+/// integrata gestita da `mobile_scanner`: su desktop resta il flusso da
+/// immagine già scelta (`_importFromQrImage`).
+bool get _supportsLiveQrScan =>
+    !kIsWeb && (Platform.isIOS || Platform.isAndroid);
 
 enum CipherDirection { encode, decode }
 
@@ -177,6 +186,17 @@ class _HomePageState extends ConsumerState<HomePage> {
     }
   }
 
+  Future<void> _scanQrFromCamera() async {
+    try {
+      final decoded = await QrScanScreen.show(context);
+      if (decoded == null || !mounted) return;
+      _applyImportedContent(decoded);
+    } catch (e) {
+      if (!mounted) return;
+      _showSnackBar('Scansione non riuscita: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final plugin = ref.watch(selectedCipherProvider);
@@ -210,6 +230,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                   icon: const Icon(Icons.qr_code_scanner),
                   label: const Text('Importa da QR'),
                 ),
+                if (_supportsLiveQrScan)
+                  TextButton.icon(
+                    onPressed: _scanQrFromCamera,
+                    icon: const Icon(Icons.camera_alt_outlined),
+                    label: const Text('Scansiona QR'),
+                  ),
               ],
             ),
             const SizedBox(height: 8),
