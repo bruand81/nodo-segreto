@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:file_selector/file_selector.dart';
@@ -7,6 +8,9 @@ import 'package:share_plus/share_plus.dart';
 const XTypeGroup _scoutCodeTypeGroup = XTypeGroup(
   label: 'Messaggio Nodo Segreto',
   extensions: ['json', 'txt'],
+  // Richiesti esplicitamente da file_selector_ios: senza uniformTypeIdentifiers
+  // openFile lancia un ArgumentError sincrono su iOS (extensions da solo non basta).
+  uniformTypeIdentifiers: ['public.json', 'public.plain-text'],
 );
 
 /// Export/import di file e condivisione via share sheet nativo. Per i
@@ -23,17 +27,12 @@ class ShareService {
     String content, {
     String suggestedName = 'nodo_segreto_messaggio.txt',
   }) async {
-    final location = await getSaveLocation(suggestedName: suggestedName);
-    if (location == null) return false;
-
     final data = Uint8List.fromList(utf8.encode(content));
-    final file = XFile.fromData(
+    return _exportBytes(
       data,
       mimeType: 'text/plain',
-      name: suggestedName,
+      suggestedName: suggestedName,
     );
-    await file.saveTo(location.path);
-    return true;
   }
 
   static Future<void> shareText(String content) async {
@@ -44,14 +43,37 @@ class ShareService {
     Uint8List pngBytes, {
     String suggestedName = 'nodo_segreto_messaggio.png',
   }) async {
+    return _exportBytes(
+      pngBytes,
+      mimeType: 'image/png',
+      suggestedName: suggestedName,
+    );
+  }
+
+  // file_selector_ios non implementa getSaveLocation/getSavePath (lancia
+  // sempre UnimplementedError, nessuna versione pubblicata lo supporta):
+  // su iOS usiamo lo share sheet nativo, che include "Salva su File" tra le
+  // azioni disponibili, come unico modo per far scegliere all'utente una
+  // destinazione arbitraria.
+  static Future<bool> _exportBytes(
+    Uint8List data, {
+    required String mimeType,
+    required String suggestedName,
+  }) async {
+    if (Platform.isIOS) {
+      final file = XFile.fromData(
+        data,
+        mimeType: mimeType,
+        name: suggestedName,
+      );
+      final result = await SharePlus.instance.share(ShareParams(files: [file]));
+      return result.status == ShareResultStatus.success;
+    }
+
     final location = await getSaveLocation(suggestedName: suggestedName);
     if (location == null) return false;
 
-    final file = XFile.fromData(
-      pngBytes,
-      mimeType: 'image/png',
-      name: suggestedName,
-    );
+    final file = XFile.fromData(data, mimeType: mimeType, name: suggestedName);
     await file.saveTo(location.path);
     return true;
   }

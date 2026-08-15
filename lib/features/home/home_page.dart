@@ -22,6 +22,9 @@ enum CipherDirection { encode, decode }
 const XTypeGroup _imageTypeGroup = XTypeGroup(
   label: 'Immagine QR',
   extensions: ['png', 'jpg', 'jpeg'],
+  // Richiesti esplicitamente da file_selector_ios: senza uniformTypeIdentifiers
+  // openFile lancia un ArgumentError sincrono su iOS (extensions da solo non basta).
+  uniformTypeIdentifiers: ['public.png', 'public.jpeg'],
 );
 
 class HomePage extends ConsumerStatefulWidget {
@@ -142,24 +145,36 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   Future<void> _importFromFile() async {
-    final content = await ShareService.importFromFile();
-    if (content == null || !mounted) return;
-    _applyImportedContent(content);
+    try {
+      final content = await ShareService.importFromFile();
+      if (content == null || !mounted) return;
+      _applyImportedContent(content);
+    } catch (e) {
+      if (!mounted) return;
+      _showSnackBar('Importazione non riuscita: $e');
+    }
   }
 
   Future<void> _importFromQrImage() async {
-    final file = await openFile(acceptedTypeGroups: [_imageTypeGroup]);
-    if (file == null) return;
-    final decoded = await QrDecodeService.decodeFromImagePath(file.path);
-    if (decoded == null) {
+    try {
+      final file = await openFile(acceptedTypeGroups: [_imageTypeGroup]);
+      if (file == null) return;
+      final decoded = await QrDecodeService.decodeFromImagePath(file.path);
+      if (decoded == null) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Nessun QR riconosciuto nell\'immagine'),
+          ),
+        );
+        return;
+      }
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Nessun QR riconosciuto nell\'immagine')),
-      );
-      return;
+      _applyImportedContent(decoded);
+    } catch (e) {
+      if (!mounted) return;
+      _showSnackBar('Importazione non riuscita: $e');
     }
-    if (!mounted) return;
-    _applyImportedContent(decoded);
   }
 
   @override
