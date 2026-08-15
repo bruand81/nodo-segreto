@@ -32,7 +32,8 @@ retry flutter pub get
 # those are only written by "flutter assemble", which the Xcode archive
 # step's "Flutter Assemble" run-script phase needs to already exist before
 # it runs. --config-only generates them without doing a redundant full build.
-# This is also where Xcode resolves the Swift Package Manager plugin
-# dependencies (FlutterGeneratedPluginSwiftPackage), so it's still wrapped
-# in retry() for network resilience.
+# (Swift Package Manager resolution itself happens later, inside Xcode
+# Cloud's own "xcodebuild archive" step, outside this script — but
+# FlutterGeneratedPluginSwiftPackage only declares local path dependencies
+# here, so that step doesn't hit the network either.)
 retry flutter build macos --release --config-only
