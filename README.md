@@ -10,7 +10,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License: MIT" />
-  <img src="https://img.shields.io/badge/Flutter-3.41-02569B?logo=flutter&logoColor=white" alt="Flutter" />
+  <img src="https://img.shields.io/badge/Flutter-3.44-02569B?logo=flutter&logoColor=white" alt="Flutter" />
   <img src="https://img.shields.io/badge/Dart-3.11-0175C2?logo=dart&logoColor=white" alt="Dart" />
   <img src="https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%7C%20macOS%20%7C%20Windows%20%7C%20Linux-lightgrey" alt="Piattaforme supportate" />
   <img src="https://img.shields.io/badge/offline--first-yes-forestgreen" alt="Offline-first" />
@@ -32,15 +32,15 @@ Supporta tre cifrari richiesti più uno opzionale:
 ## Funzionalità
 
 - **Architettura a plugin**: ogni cifrario è un modulo autonomo; il core dell'app (UI, storage, condivisione) non conosce i dettagli dei singoli cifrari.
-- **Input flessibile**: digitazione manuale, importazione da file di testo o da immagine QR.
+- **Input flessibile**: digitazione manuale, importazione da file di testo, da immagine QR o scansione QR dal vivo con la fotocamera (iOS/Android).
 - **Output dedicato**: area di visualizzazione del risultato, con rendering personalizzato per cifrario (es. i glifi Pigpen).
 - **Storage locale**: i messaggi codificati/decodificati vengono salvati su SQLite (via Drift), interamente sul dispositivo.
-- **Condivisione**: esportazione su file, share sheet nativo o QR code (generazione e importazione da immagine).
+- **Condivisione**: esportazione su file, share sheet nativo o QR code (generazione, importazione da immagine e scansione dal vivo su iOS/Android).
 - **Tema Scout**: palette verde foresta / tan corda, coerente con l'icona a nodo con motivo Morse.
 
 ## Piattaforme
 
-Sviluppato e testato su **macOS**; eseguita con successo anche su **simulatore iOS** ed **emulatore Android**. Non ancora testata su dispositivi fisici iOS/Android reali. Gli scaffold per **Windows** e **Linux** sono presenti ma non ancora verificati su hardware dedicato.
+Sviluppato su **macOS**; verificata con successo su **macOS**, **iOS** (simulatore e dispositivo fisico) e **Android** (emulatore e dispositivo fisico). Gli scaffold per **Windows** e **Linux** sono presenti ma non ancora verificati su hardware dedicato.
 
 ## Per iniziare
 
