@@ -28,6 +28,8 @@ bool get _supportsLiveQrScan =>
 
 enum CipherDirection { encode, decode }
 
+enum _QrImportMethod { camera, image }
+
 const XTypeGroup _imageTypeGroup = XTypeGroup(
   label: 'Immagine QR',
   extensions: ['png', 'jpg', 'jpeg'],
@@ -197,6 +199,39 @@ class _HomePageState extends ConsumerState<HomePage> {
     }
   }
 
+  Future<void> _importFromQr() async {
+    if (!_supportsLiveQrScan) {
+      return _importFromQrImage();
+    }
+    final method = await showModalBottomSheet<_QrImportMethod>(
+      context: context,
+      builder: (context) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.camera_alt_outlined),
+              title: const Text('Scansiona con la fotocamera'),
+              onTap: () => Navigator.pop(context, _QrImportMethod.camera),
+            ),
+            ListTile(
+              leading: const Icon(Icons.image_outlined),
+              title: const Text('Da immagine'),
+              onTap: () => Navigator.pop(context, _QrImportMethod.image),
+            ),
+          ],
+        ),
+      ),
+    );
+    if (!mounted || method == null) return;
+    switch (method) {
+      case _QrImportMethod.camera:
+        await _scanQrFromCamera();
+      case _QrImportMethod.image:
+        await _importFromQrImage();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final plugin = ref.watch(selectedCipherProvider);
@@ -226,16 +261,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                   label: const Text('Importa da file'),
                 ),
                 TextButton.icon(
-                  onPressed: _importFromQrImage,
+                  onPressed: _importFromQr,
                   icon: const Icon(Icons.qr_code_scanner),
-                  label: const Text('Importa da QR'),
+                  label: const Text('Importa da QRCode'),
                 ),
-                if (_supportsLiveQrScan)
-                  TextButton.icon(
-                    onPressed: _scanQrFromCamera,
-                    icon: const Icon(Icons.camera_alt_outlined),
-                    label: const Text('Scansiona QR'),
-                  ),
               ],
             ),
             const SizedBox(height: 8),
